@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minmum-scale=1.0,maxmum-scale=1.0,user-scalable=no"/>
+    <link rel="stylesheet" href="css/weui.css">
+    <link rel="stylesheet" href="css/jquery-weui.css">
+    <script src="js/jquery-3.3.1.js"></script>
+    <script src="js/jquery-weui.js"></script>
+    <style>
+        .weui-grids{
+            padding:0 15px;
+        }
+        .weui-grids:before{
+            border-top:none;
+        }
+        .weui-grid{
+            width:50%;
+            padding:20px 10px 0 10px;
+        }
+        .weui-grid__icon{
+            width:100%;
+            height:auto;
+        }
+        .weui-grid__label{
+            text-align: left;
+        }
+        .weui-grid:before{
+            border-right:none;
+        }
+        .weui-grid:after{
+            border-bottom:none;
+        }
+
+
+        .weui-cell{
+            padding:15px 0 0 0;
+        }
+        .weui-cell:before{
+            border-top:none;
+        }
+        .reduce{
+            width:20px;
+            height:20px;
+            text-align: center;
+            line-height: 18px;
+            border-radius: 50%;
+            color:#fff;
+            display: none;
+            background: #999999;
+        }
+        .add{
+            width:20px;
+            height:20px;
+            line-height: 19px;
+            text-align: center;
+            background: #00adc6;
+            color:#fff;
+            border-radius: 50%;
+        }
+        .number{
+            width:25px;
+            text-align: center;
+            border:none;
+            display: none;
+            font-size:16px;
+        }
+        .price{
+            color:#000;
+        }
+
+
+        .weui-footer{
+            height:46px;
+            background: #f0fafc;
+        }
+        .weui-footer_fixed-bottom{
+            bottom:0;
+        }
+    </style>
+</head>
+<body>
+<!-- 容器 -->
+<div class="weui-tab">
+    <div class="weui-navbar">
+        <a class="weui-navbar__item weui-bar__item--on" href="#tab1">
+            商品
+        </a>
+        <a class="weui-navbar__item" href="#tab2">
+            打印照片
+        </a>
+
+    </div>
+    <div class="weui-tab__bd">
+        <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
+
+            <div class="weui-grids">
+                <p style="padding-left:10px;">商品</p>
+                <a href="javascript:;" class="weui-grid js_grid">
+                    <div class="weui-grid__icon">
+                        <img src="img/1.jpg" alt="">
+                    </div>
+                    <p class="weui-grid__label">
+                        炭烧咖啡
+                    </p>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <p class="price">￥5</p>
+                        </div>
+                        <div class="weui-count__decrease reduce">-</div>
+                        <input type="text" class="weui-count__number number">
+                        <div class="weui-count__increase add">+</div>
+                    </div>
+                </a>
+                <a href="javascript:;" class="weui-grid js_grid">
+                    <div class="weui-grid__icon">
+                        <img src="img/1.jpg" alt="">
+                    </div>
+                    <p class="weui-grid__label">
+                        炭烧咖啡
+                    </p>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <p class="price">￥5</p>
+                        </div>
+                        <div class="weui-count__decrease reduce">-</div>
+                        <input type="text" class="weui-count__number number">
+                        <div class="weui-count__increase add">+</div>
+                    </div>
+                </a>
+                <a href="javascript:;" class="weui-grid js_grid">
+                    <div class="weui-grid__icon">
+                        <img src="img/2.jpg" alt="">
+                    </div>
+                    <p class="weui-grid__label">
+                        永和豆浆
+                    </p>
+                    <div class="weui-cell">
+                        <div class="weui-cell__bd">
+                            <p class="price">￥5</p>
+                        </div>
+                        <div class="weui-count__decrease reduce">-</div>
+                        <input type="text" class="weui-count__number number">
+                        <div class="weui-count__increase add">+</div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div id="tab2" class="weui-tab__bd-item">
+            <div class="weui-cells weui-cells_form">
+                <div class="weui-cell">
+                    <div class="weui-cell__bd">
+                        <div class="weui-uploader">
+                            <div class="weui-uploader__hd">
+                                <p class="weui-uploader__title" style="text-align: center">图片上传</p>
+                            </div>
+                            <div class="weui-uploader__bd">
+                                <div class="weui-uploader__input-box" style="margin-left:50%;transform:translateX(-50%)">
+                                    <input id="uploaderInput" class="weui-uploader__input" type="file" accept="image/*;capture=camera">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="weui-footer weui-footer_fixed-bottom">
+
+    </div>
+</div>
+
+<script>
+    var MAX = 99, MIN = 0;
+    //    减
+    $('.weui-count__decrease').click(function (e) {
+        var $input = $(e.currentTarget).parent().find('.weui-count__number');
+        var number = parseInt($input.val() || "0") - 1
+        if (number < MIN) number = MIN;
+        $input.val(number)
+        if(number == 0){
+            $(this).css('display','none');
+            $('.weui-count__number').hide();
+        }
+    })
+    //    加
+    $('.weui-count__increase').click(function (e) {
+        $(this).parent('.weui-cell').find('.weui-count__decrease').css('display','block');
+        $(this).parent('.weui-cell').find('.number').css('display','block')
+        var $input = $(e.currentTarget).parent().find('.weui-count__number');
+        var number = parseInt($input.val() || "0") + 1
+        if (number > MAX) number = MAX;
+        $input.val(number)
+    })
+</script>
+</body>
+</html>
